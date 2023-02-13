@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="{{ (grav.language.getActive ?: grav.config.site.default_lang)|e }}">
+<head>
+{% block head %}
+    <meta charset="utf-8" />
+    <title>{% if header.title %}{{ header.title|e }} | {% endif %}{{ site.title|e }}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'partials/metadata.html.twig' %}
+
+    <link rel="icon" type="image/png" href="{{ url('theme://images/logo.png')|e }}" />
+    <link rel="canonical" href="{{ page.canonical(true)|e }}" />
+
+    <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png') }}" />
+
+{% endblock head %}
+
+{% block stylesheets %}
+    {% do assets.addCss('https://unpkg.com/purecss@1.0.0/build/pure-min.css', 100) %}
+    {% do assets.addCss('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', 99) %}
+    {% do assets.addCss('theme://css/custom.css', 98) %}
+{% endblock %}
+
+{% block javascripts %}
+    {% do assets.addJs('jquery', 100) %}
+    {% do assets.addJs('theme://js/main.js', { group: 'bottom' }) %}
+{% endblock %}
+
+{% block assets deferred %}
+    {{ assets.css()|raw }}
+    {{ assets.js()|raw }}
+{% endblock %}
+</head>
+<body id="top" class="{{ page.header.body_classes|e }}">
+
+<div class="page">
+    {% block header %}
+        <div class="header">
+            <div class="container">
+                <div class="header__container">
+                    <a href="/">
+                        <img class="logo" src="{{ url('theme://images/logo.png')|e }}" alt="logo">
+                    </a>
+                    <div class="burger__wrapper">
+                        <div class="burger">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block header_navigation %}
+            <nav class="nav">
+                <div class="container">
+                {% include 'partials/navigation.html.twig' %}
+                </div>
+            </nav>
+        {% endblock %}
+    {% endblock %}
+
+    <div class="header__backround">
+        <h1 class="title">Парк кольцово</h1>
+        <img src="{{ url('theme://images/bg.jpg')|e }}" alt="">
+    </div>
+
+    {% block body %}
+        <section id="body" class="body">
+            <div class="container">
+            {% block content %}{% endblock %}
+            </div>
+        </section>
+    {% endblock %}
+</div>
+
+{% block footer %}
+    <div class="footer">
+        <div class="container">
+            <div class="footer__contacts">
+                <div class="">
+                   <p class="footer__title">Контакты</p>
+                   <a class="footer__text" href="+7 906-907-48-40">+7 906-907-48-40 <span>прокат</span></a>
+                   <a class="footer__text" href="+7 906-907-48-40">+7 906-907-48-40 <span>прокат</span></a>
+                   <a class="footer__text" href="+7 906-907-48-40">+7 906-907-48-40 <span>прокат</span></a>
+                </div>
+                <div class="">
+                   <p class="footer__title">Адрес</p>
+                   <p class="footer__text">
+                        Новосибирская область,<br>
+                        Новосибирский район,<br>
+                        р.п. Кольцово,<br>
+                        проспект Академика Сандахчиева, 1
+                    </p>
+                </div>
+                <div class="">
+                   <p class="footer__title">Часы работы</p>
+                   <p class="footer__text">
+                        пн-пт с 8-00 до 17-00<br>
+                        сб-вс выходные<br>
+                        обед с 13-00 до 14-00
+                    </p>
+                </div>
+            </div>
+            <p class="text-center">"МБУ ПКиО "ПАРК - КОЛЬЦОВО"</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom %}
+    {{ assets.js('bottom')|raw }}
+{% endblock %}
+
+
+</body>
+</html>
